@@ -1,7 +1,9 @@
 package channelpopularity.driver;
 
+import channelpopularity.helpers.ValidationHelper;
+
 /**
- * @author John Doe
+ * @author Harshit Vadodaria
  *
  */
 public class Driver {
@@ -18,6 +20,12 @@ public class Driver {
 			System.err.printf("Error: Incorrect number of arguments. Program accepts %d arguments.", REQUIRED_NUMBER_OF_CMDLINE_ARGS);
 			System.exit(0);
 		}
-		System.out.println("Hello World! Lets get started with the assignment");
+		
+		ValidationHelper validation = new ValidationHelper().critical();
+
+		validation.validateFile(args[0]); // Validating Input File
+		validation.validateNotEmpty(args[1], "Output filename was empty"); // Validating Output File
+		
+		
 	}
 }
