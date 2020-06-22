@@ -18,4 +18,11 @@ public interface StdoutDisplayInterface {
 	 */
 	void printToStdOut(String printStr);
 
+	/**
+	 * Prints {@code printStr} to all available OutputStream Writers
+	 * 
+	 * @param printStr
+	 */
+	void printToAll(String printStr);
+
 }

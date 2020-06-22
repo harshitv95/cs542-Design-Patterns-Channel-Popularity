@@ -3,42 +3,72 @@ package channelpopularity.channel;
 import java.util.HashMap;
 import java.util.Map;
 
+import channelpopularity.channel.video.VideoMetrics;
+import channelpopularity.channel.video.VideoStoreI;
 import channelpopularity.context.ContextI;
 import channelpopularity.operation.Operation;
-import channelpopularity.state.AbstractState;
+import channelpopularity.state.StateI;
 import channelpopularity.state.StateName;
 import channelpopularity.state.factory.SimpleStateFactoryI;
 import channelpopularity.util.Results;
 
 public class ChannelContext implements ContextI {
 
-	private AbstractState state;
-	private final SimpleStateFactoryI factory;
-	private final Map<StateName, AbstractState> statesCache;
-	private final Results outputRes;
+	protected StateI state;
+	protected final SimpleStateFactoryI factory;
+	protected final Map<StateName, StateI> statesCache;
+	protected final Results outputRes;
 
-	public ChannelContext(SimpleStateFactoryI factory, Results outputRes) {
+	protected final VideoStoreI videos;
+
+	protected int totalViews, totalLikes, totalDislikes;
+	protected double avgPopularityScore;
+
+	public ChannelContext(VideoStoreI videoStore, SimpleStateFactoryI factory, Results outputRes) {
 		this.factory = factory;
 		this.statesCache = new HashMap<>();
 		this.outputRes = outputRes;
-		
+		this.videos = videoStore;
+
 		this.setState(StateName.UNPOPULAR);
 	}
 
 	@Override
 	public void setState(StateName stateName) {
 		if (!statesCache.containsKey(stateName))
-			statesCache.put(stateName, (AbstractState) this.factory.create(stateName, outputRes));
+			statesCache.put(stateName, this.factory.create(stateName, outputRes));
 		this.state = statesCache.get(stateName);
 	}
 
+	public StateI getState() {
+		return this.state;
+	}
+
 	@Override
-	public void action(Operation op, Map<String, Integer> values) {
+	public void action(Operation op, Map<Operation.ParamKeys, ?> params) {
 		switch (op) {
+		case ADD_VIDEO:
+			state.addVideo((String) params.get(Operation.ParamKeys.VIDEONAME));
+			break;
 		case AD_REQUEST:
-			state.processAdRequest(values.get("AD_LENGTH"));
+			state.processAdRequest((int) params.get(Operation.ParamKeys.LEN));
 			break;
 		}
+	}
+
+	@Override
+	public VideoStoreI getVideoStore() {
+		return this.videos;
+	}
+
+	@Override
+	public double getPopularity() {
+		return avgPopularityScore;
+	}
+
+	@Override
+	public void setPopularity(double popularityScore) {
+		avgPopularityScore = popularityScore;
 	}
 
 }

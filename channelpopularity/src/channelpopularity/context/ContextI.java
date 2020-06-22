@@ -2,6 +2,7 @@ package channelpopularity.context;
 
 import java.util.Map;
 
+import channelpopularity.channel.video.VideoStoreI;
 import channelpopularity.operation.Operation;
 import channelpopularity.state.StateName;
 
@@ -24,7 +25,7 @@ public interface ContextI {
 	 * 
 	 * @param stateName
 	 */
-	public void setState(StateName stateName);
+	void setState(StateName stateName);
 
 	/**
 	 * Performs the required action based on the {@code operation} (type:
@@ -34,5 +35,29 @@ public interface ContextI {
 	 * @param values    Map containing various params to be used to perform the
 	 *                  operation
 	 */
-	public void action(Operation operation, Map<String, Integer> values);
+	void action(Operation operation, Map<Operation.ParamKeys, ?> values);
+
+	/**
+	 * Returns the popularity score of the channel, which is the average popularity
+	 * score of all videos in the channel
+	 * 
+	 * @return Popularity score of the channel
+	 */
+	double getPopularity();
+
+	/**
+	 * Sets the popularity score of the channel
+	 * 
+	 * @param popularityScore The score to set the channel's popularity to
+	 */
+	void setPopularity(double popularityScore);
+
+	/**
+	 * Returns the channel's video store
+	 * 
+	 * @return Instance of {@link VideoStoreI}, representing the Videos Store for
+	 *         the current channel
+	 */
+	VideoStoreI getVideoStore();
+
 }

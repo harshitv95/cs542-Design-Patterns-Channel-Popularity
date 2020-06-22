@@ -45,6 +45,12 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface, Cl
 	}
 
 	@Override
+	public void printToAll(String printStr) {
+		printToStdOut(printStr);
+		printToFile(printStr);
+	}
+
+	@Override
 	public Writer initStdOutWriter() {
 		return new PrintWriter(System.out);
 	}

@@ -20,4 +20,11 @@ public interface FileDisplayInterface {
 	 */
 	Writer initFileWriter(String filename);
 
+	/**
+	 * Prints {@code printStr} to all available OutputStream Writers
+	 * 
+	 * @param printStr
+	 */
+	void printToAll(String printStr);
+
 }

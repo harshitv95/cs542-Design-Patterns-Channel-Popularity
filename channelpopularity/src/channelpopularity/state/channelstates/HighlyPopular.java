@@ -1,20 +1,26 @@
 package channelpopularity.state.channelstates;
 
+import channelpopularity.context.ContextI;
 import channelpopularity.state.AbstractState;
 import channelpopularity.state.StateName;
+import channelpopularity.util.Results;
 
 public class HighlyPopular extends AbstractState {
 
-	@Override
-	public StateName updateState(int popularityScore) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public HighlyPopular(ContextI context, Results results) {
+		super(context, results);
 	}
 
 	@Override
-	public String processAdRequest(int length) {
+	protected StateName getName() {
+		return StateName.HIGHLY_POPULAR;
+	}
+
+	@Override
+	public boolean approveAd(String videoName, int length) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 }

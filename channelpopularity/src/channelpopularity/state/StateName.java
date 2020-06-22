@@ -13,15 +13,15 @@ import channelpopularity.state.channelstates.Unpopular;
  */
 public enum StateName {
 
-	UNPOPULAR(Unpopular.class, 0, 1000),
-	MILDLY_POPULAR(MildlyPopular.class, 1001, 10000),
-	HIGHLY_POPULAR(HighlyPopular.class, 10001, 100000),
-	ULTRA_POPULAR(UltraPopular.class, 100001, Integer.MAX_VALUE);
+	UNPOPULAR(Unpopular.class, 0, 1000.0),
+	MILDLY_POPULAR(MildlyPopular.class, 1000.0, 10000.0),
+	HIGHLY_POPULAR(HighlyPopular.class, 10000.0, 100000.0),
+	ULTRA_POPULAR(UltraPopular.class, 100000.0, Integer.MAX_VALUE);
 
 	private final Class<? extends StateI> clazz;
-	private final int min, max;
+	private final double min, max;
 
-	StateName(Class<? extends StateI> clazz, int minInclusive, int maxInclusive) {
+	StateName(Class<? extends StateI> clazz, double minInclusive, double maxInclusive) {
 		this.clazz = clazz;
 		this.min = minInclusive;
 		this.max = maxInclusive;
@@ -38,20 +38,20 @@ public enum StateName {
 	}
 
 	/**
-	 * Returns the Lower Bound (<b>Inclusive</b>) for the instantiated StateName
+	 * Returns the Lower Bound (<b>Exclusive</b>) for the instantiated StateName
 	 * 
-	 * @return {@code int}
+	 * @return {@code double}
 	 */
-	public int getLowerBound() {
+	public double getLowerBoundExclusive() {
 		return this.min;
 	}
 
 	/**
 	 * Returns the Upper Bound (<b>Inclusive</b>) for the instantiated StateName
 	 * 
-	 * @return
+	 * @return {@code double}
 	 */
-	public int getUpperBound() {
+	public double getUpperBoundInclusive() {
 		return this.max;
 	}
 }
