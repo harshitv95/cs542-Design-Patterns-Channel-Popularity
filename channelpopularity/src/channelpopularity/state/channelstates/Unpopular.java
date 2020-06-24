@@ -13,8 +13,8 @@ public class Unpopular extends AbstractState {
 	}
 
 	@Override
-	protected StateName getName() {
-		return StateName.UNPOPULAR;
+	protected String getName() {
+		return StateName.UNPOPULAR.name();
 	}
 
 	@Override

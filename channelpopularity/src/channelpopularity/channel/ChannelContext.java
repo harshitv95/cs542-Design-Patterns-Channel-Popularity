@@ -21,7 +21,6 @@ public class ChannelContext implements ContextI {
 
 	protected final VideoStoreI videos;
 
-	protected int totalViews, totalLikes, totalDislikes;
 	protected double avgPopularityScore;
 
 	public ChannelContext(VideoStoreI videoStore, SimpleStateFactoryI factory, Results outputRes) {
@@ -36,7 +35,7 @@ public class ChannelContext implements ContextI {
 	@Override
 	public void setState(StateName stateName) {
 		if (!statesCache.containsKey(stateName))
-			statesCache.put(stateName, this.factory.create(stateName, outputRes));
+			statesCache.put(stateName, this.factory.create(stateName, this, outputRes));
 		this.state = statesCache.get(stateName);
 	}
 
@@ -45,13 +44,20 @@ public class ChannelContext implements ContextI {
 	}
 
 	@Override
-	public void action(Operation op, Map<Operation.ParamKeys, ?> params) {
+	public void action(Operation op, Map<Operation.ParamKeys, String> params) {
 		switch (op) {
 		case ADD_VIDEO:
 			state.addVideo((String) params.get(Operation.ParamKeys.VIDEONAME));
 			break;
+		case REMOVE_VIDEO:
+			state.removeVideo((String) params.get(Operation.ParamKeys.VIDEONAME));
+			break;
+		case METRICS:
+			state.updateVideoMetrics(new VideoMetrics(params.get(Operation.ParamKeys.VIDEONAME).toString(), params));
+			break;
 		case AD_REQUEST:
-			state.processAdRequest((int) params.get(Operation.ParamKeys.LEN));
+			state.processAdRequest((String) params.get(Operation.ParamKeys.VIDEONAME),
+					Integer.parseInt(params.get(Operation.ParamKeys.LEN)));
 			break;
 		}
 	}

@@ -29,7 +29,7 @@ public class SimpleVideoStore implements VideoStoreI {
 
 	@Override
 	public void updateMetrics(String videoName, VideoMetrics metrics) {
-		if (exists(videoName))
+		if (!exists(videoName))
 			throw new VideoStoreException("Video [" + videoName + "] does not exist, could not update metrics");
 
 		try {

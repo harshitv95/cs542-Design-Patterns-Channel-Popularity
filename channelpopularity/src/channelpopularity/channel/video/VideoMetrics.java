@@ -20,7 +20,7 @@ public class VideoMetrics {
 		this(videoName, null);
 	}
 
-	public VideoMetrics(String videoName, Map<String, Integer> metrics) {
+	public VideoMetrics(String videoName, Map<Operation.ParamKeys, String> metrics) {
 		this.videoName = videoName;
 		this.updateMetrics(metrics);
 	}
@@ -29,26 +29,29 @@ public class VideoMetrics {
 		return videoName;
 	}
 
-	public void updateMetrics(Map<String, Integer> metrics) {
+	public VideoMetrics updateMetrics(Map<Operation.ParamKeys, String> metrics) {
 		if (metrics != null) {
-			views += metrics.getOrDefault(Operation.ParamKeys.VIEWS, 0);
-			likes += metrics.getOrDefault(Operation.ParamKeys.LIKES, 0);
-			dislikes += metrics.getOrDefault(Operation.ParamKeys.DISLIKES, 0);
+			views += Integer.parseInt(metrics.getOrDefault(Operation.ParamKeys.VIEWS, "0"));
+			likes += Integer.parseInt(metrics.getOrDefault(Operation.ParamKeys.LIKES, "0"));
+			dislikes += Integer.parseInt(metrics.getOrDefault(Operation.ParamKeys.DISLIKES, "0"));
 		}
+		return this;
 	}
 
-	public void updateMetrics(VideoMetrics metrics) {
+	public VideoMetrics updateMetrics(VideoMetrics metrics) {
 		if (metrics != null) {
 			this.views += metrics.getViews();
 			this.likes += metrics.getLikes();
 			this.dislikes += metrics.getDislikes();
 		}
+		return this;
 	}
 
-	public void updateMetrics(int views, int likes, int dislikes) {
+	public VideoMetrics updateMetrics(int views, int likes, int dislikes) {
 		this.views += views;
 		this.likes += likes;
 		this.dislikes += dislikes;
+		return this;
 	}
 
 	public int calcPopularityScore() {

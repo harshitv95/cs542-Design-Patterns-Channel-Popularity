@@ -5,16 +5,47 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.LinkedList;
+import java.util.Queue;
 
+/**
+ * Used to print contents to stdout and an output file
+ * 
+ * @author Harshit Vadodaria
+ *
+ */
 public class Results implements FileDisplayInterface, StdoutDisplayInterface, Closeable {
 
-	final Writer stdOut, fileOut;
-	final String filename;
+	final protected Writer stdOut, fileOut;
+	final protected String filename;
+	final protected Queue<String> fileOutBuffer, stdOutBuffer;
+	final protected boolean buffered;
 
+	/**
+	 * Equivalent to the constructor {@link #Results(String, boolean)
+	 * Results(filename, true)}}
+	 * 
+	 * @param filename {@code String} containing the name of the output file
+	 */
 	public Results(String filename) {
+		this(filename, true);
+	}
+
+	/**
+	 * Setting {@code buffered} to {@code true} will enable buffering while printing
+	 * contents to output file and stdout. Calling the {@link #flush()} method
+	 * flushes the buffer to the file and stdout
+	 * 
+	 * @param filename {@code String} containing the name of the output file
+	 * @param buffered {@code boolean} Indicate whether buffered is to be used
+	 */
+	public Results(String filename, boolean buffered) {
+		this.buffered = buffered;
 		this.stdOut = this.initStdOutWriter();
 		this.fileOut = this.initFileWriter(filename);
 		this.filename = filename;
+		this.fileOutBuffer = !buffered ? null : new LinkedList<>();
+		this.stdOutBuffer = !buffered ? null : new LinkedList<>();
 	}
 
 	protected void write(Writer out, String str) throws IOException {
@@ -29,7 +60,10 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface, Cl
 	@Override
 	public void printToStdOut(String s) {
 		try {
-			write(stdOut, s);
+			if (!buffered)
+				write(stdOut, s);
+			else
+				stdOutBuffer.add(s);
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to write to stdout", e);
 		}
@@ -38,7 +72,10 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface, Cl
 	@Override
 	public void printToFile(String s) {
 		try {
-			write(fileOut, s);
+			if (!buffered)
+				write(fileOut, s);
+			else
+				fileOutBuffer.add(s);
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to write to File", e);
 		}
@@ -62,6 +99,18 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface, Cl
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to open file [" + filename + "] for writing", e);
 		}
+	}
+
+	protected void flushBuffer(Writer out, Queue<String> buffer) throws IOException {
+		while (!buffer.isEmpty())
+			write(out, buffer.poll());
+	}
+
+	public void flush() throws IOException {
+		if (!buffered)
+			return;
+		flushBuffer(fileOut, fileOutBuffer);
+		flushBuffer(stdOut, stdOutBuffer);
 	}
 
 	@Override

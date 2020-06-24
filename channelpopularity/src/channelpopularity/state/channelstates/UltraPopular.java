@@ -12,13 +12,13 @@ public class UltraPopular extends AbstractState {
 	}
 
 	@Override
-	public void processAdRequest(int length) {
-		// TODO Auto-generated method stub
+	protected String getName() {
+		return StateName.ULTRA_POPULAR.name();
 	}
 
 	@Override
-	protected StateName getName() {
-		return StateName.ULTRA_POPULAR;
+	public boolean approveAd(String videoName, int length) {
+		return 1 < length && length <= 40;
 	}
 
 }

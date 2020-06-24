@@ -7,20 +7,18 @@ import channelpopularity.util.Results;
 
 public class HighlyPopular extends AbstractState {
 
-
 	public HighlyPopular(ContextI context, Results results) {
 		super(context, results);
 	}
 
 	@Override
-	protected StateName getName() {
-		return StateName.HIGHLY_POPULAR;
+	protected String getName() {
+		return StateName.HIGHLY_POPULAR.name();
 	}
 
 	@Override
 	public boolean approveAd(String videoName, int length) {
-		// TODO Auto-generated method stub
-		return false;
+		return 1 < length && length <= 30;
 	}
 
 }

@@ -4,7 +4,7 @@ package channelpopularity.channel.video;
  * A generic exception to be thrown for all types of exceptions while using
  * {@link VideoStoreI}
  * 
- * @author harshitv
+ * @author Harshit Vadodaria
  *
  */
 public class VideoStoreException extends RuntimeException {

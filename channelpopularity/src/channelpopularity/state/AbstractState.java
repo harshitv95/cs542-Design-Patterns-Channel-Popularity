@@ -74,7 +74,7 @@ public abstract class AbstractState implements StateI {
 		context.setState(updateState());
 	}
 
-	protected abstract StateName getName();
+	protected abstract String getName();
 
 	@Override
 	public String toString() {

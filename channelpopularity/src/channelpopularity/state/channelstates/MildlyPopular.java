@@ -12,13 +12,13 @@ public class MildlyPopular extends AbstractState {
 	}
 
 	@Override
-	public void processAdRequest(int length) {
-		// TODO Auto-generated method stub
+	protected String getName() {
+		return StateName.MILDLY_POPULAR.name();
 	}
 
 	@Override
-	protected StateName getName() {
-		return StateName.MILDLY_POPULAR;
+	public boolean approveAd(String videoName, int length) {
+		return 1 < length && length <= 20;
 	}
 
 }

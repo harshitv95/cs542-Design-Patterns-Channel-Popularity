@@ -35,7 +35,7 @@ public interface ContextI {
 	 * @param values    Map containing various params to be used to perform the
 	 *                  operation
 	 */
-	void action(Operation operation, Map<Operation.ParamKeys, ?> values);
+	void action(Operation operation, Map<Operation.ParamKeys, String> values);
 
 	/**
 	 * Returns the popularity score of the channel, which is the average popularity
