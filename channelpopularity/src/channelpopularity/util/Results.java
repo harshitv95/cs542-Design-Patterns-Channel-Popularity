@@ -14,7 +14,7 @@ import java.util.Queue;
  * @author Harshit Vadodaria
  *
  */
-public class Results implements IResults, FileDisplayInterface, StdoutDisplayInterface, Closeable {
+public class Results implements ResultsI, FileDisplayInterface, StdoutDisplayInterface, Closeable {
 
 	final protected Writer stdOut, fileOut;
 	final protected String filename;

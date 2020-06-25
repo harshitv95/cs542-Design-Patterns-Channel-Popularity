@@ -7,7 +7,7 @@ package channelpopularity.util;
  * @author Harshit Vadodaria
  *
  */
-public interface IResults {
+public interface ResultsI {
 
 	/**
 	 * Similar to {@link #print(String)}}, but moves cursor to new line after

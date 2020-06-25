@@ -2,14 +2,14 @@ package channelpopularity.state;
 
 import channelpopularity.channel.video.VideoMetrics;
 import channelpopularity.context.ContextI;
-import channelpopularity.util.IResults;
+import channelpopularity.util.ResultsI;
 
 public abstract class AbstractState implements StateI {
 
 	protected final ContextI context;
-	protected final IResults results;
+	protected final ResultsI results;
 
-	public AbstractState(ContextI context, IResults results) {
+	public AbstractState(ContextI context, ResultsI results) {
 		this.context = context;
 		this.results = results;
 	}
@@ -68,7 +68,9 @@ public abstract class AbstractState implements StateI {
 		int oldVidCount = context.getVideoStore().count();
 		context.getVideoStore().updateMetrics(newMetrics.getVideoName(), newMetrics);
 		calcPopularity(oldVidCount, newMetrics.calcPopularityScore());
-		results.printLn(this.getName() + "__POPULARITY_SCORE_UPDATE::" + context.getPopularity());
+		double ps = context.getPopularity();
+		results.printLn(
+				this.getName() + "__POPULARITY_SCORE_UPDATE::" + (ps % 1 == 0 ? ps : String.format("%.02f", ps)));
 		context.setState(updateState());
 	}
 

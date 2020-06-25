@@ -10,20 +10,28 @@ import channelpopularity.operation.Operation;
 import channelpopularity.state.StateI;
 import channelpopularity.state.StateName;
 import channelpopularity.state.factory.SimpleStateFactoryI;
-import channelpopularity.util.Results;
+import channelpopularity.util.ResultsI;
 
 public class ChannelContext implements ContextI {
 
 	protected StateI state;
 	protected final SimpleStateFactoryI factory;
 	protected final Map<StateName, StateI> statesCache;
-	protected final Results outputRes;
+	protected final ResultsI outputRes;
 
 	protected final VideoStoreI videos;
 
 	protected double avgPopularityScore;
 
-	public ChannelContext(VideoStoreI videoStore, SimpleStateFactoryI factory, Results outputRes) {
+	/**
+	 * @param videoStore A generic Video Store that supports basic functionalities
+	 *                   like add and remove video, update video metrics. A very
+	 *                   generic interface, any implementation of the
+	 *                   {@link VideoStoreI} can be provided.
+	 * @param factory    Any instance of {@link SimpleStateFactoryI}
+	 * @param outputRes  Any instance of {@link ResultsI}
+	 */
+	public ChannelContext(VideoStoreI videoStore, SimpleStateFactoryI factory, ResultsI outputRes) {
 		this.factory = factory;
 		this.statesCache = new HashMap<>();
 		this.outputRes = outputRes;
@@ -77,4 +85,14 @@ public class ChannelContext implements ContextI {
 		avgPopularityScore = popularityScore < 0 ? 0 : popularityScore;
 	}
 
+	@Override
+	public String toString() {
+		return "{"
+				+ "\nstate:" + this.getState()
+				+ ",\npopularity:" + this.getPopularity()
+				+ ",\nvideoStore:" + this.getVideoStore()
+				+ "\n}";
+	}
+
+	
 }

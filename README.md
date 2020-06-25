@@ -33,7 +33,14 @@ Note: Arguments accept the absolute path of the files.
 
 
 ## Description:
+A program implementing State Pattern and Factory Pattern, to help understand how these pattern
+can be mapped to real world problem statements.
 
+A Youtube Channel exists, which lets the user upload videos, and some stats like Views, Likes and Dislikes
+are updated to the channel at random intervals. These stats on a video help determine the popularity score
+of that video, and the average popularity score of all videos is the popularity score of the channel.
+The average popularity score of the channel determines whether the channel is Unpopular, Mildly Popular,
+Highly Popular or Ultra Popular.
 
 ## Academic Honesty statement:
 
