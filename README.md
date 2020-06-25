@@ -40,7 +40,7 @@ A Youtube Channel exists, which lets the user upload videos, and some stats like
 are updated to the channel at random intervals. These stats on a video help determine the popularity score
 of that video, and the average popularity score of all videos is the popularity score of the channel.
 The average popularity score of the channel determines whether the channel is Unpopular, Mildly Popular,
-Highly Popular or Ultra Popular.
+Highly Popular or Ultra Popular (refer to the state diagram image in the repo).
 This popularity adjective of a Channel can be represented as States, and the Channel can be considered
 as Context, and thus the mapping between this problem and the state pattern.
 
@@ -58,7 +58,7 @@ Thus to represent this data, the following classes have been used:
 				
 This project, being very generic and modular, can be used at a server, or with a TCP socket, or any other way of performing I/O.
 For now, this project reads inputs from a file, wherein each line is a command to the Context, and uses an instance of the `Results`
-class to write the output of each command to `stdout` and the output file. 
+class to write the output of each command to `stdout` and the output file.
 
 ## Academic Honesty statement:
 
