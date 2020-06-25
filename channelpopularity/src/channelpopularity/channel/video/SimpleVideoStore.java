@@ -74,4 +74,12 @@ public class SimpleVideoStore implements VideoStoreI {
 		return videos.containsKey(videoName) && videos.get(videoName) != null;
 	}
 
+	@Override
+	public String toString() {
+		return "{"
+				+ "\ncount: " + this.count()
+				+ ",\nvideos: " + this.videos.values()
+				+ "\n}";
+	}
+
 }

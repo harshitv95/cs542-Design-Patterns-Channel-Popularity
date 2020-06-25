@@ -14,7 +14,7 @@ import java.util.Queue;
  * @author Harshit Vadodaria
  *
  */
-public class Results implements FileDisplayInterface, StdoutDisplayInterface, Closeable {
+public class Results implements IResults, FileDisplayInterface, StdoutDisplayInterface, Closeable {
 
 	final protected Writer stdOut, fileOut;
 	final protected String filename;
@@ -82,7 +82,13 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface, Cl
 	}
 
 	@Override
-	public void printToAll(String printStr) {
+	public void printLn(String printStr) {
+		printToStdOut(printStr + "\n");
+		printToFile(printStr + "\n");
+	}
+
+	@Override
+	public void print(String printStr) {
 		printToStdOut(printStr);
 		printToFile(printStr);
 	}

@@ -54,6 +54,7 @@ public class Driver {
 				operation = opHelp.getOperation(line);
 				context.action(operation, operation.getParams(line));
 				results.flush();
+				lineCount++;
 			}
 
 			if (lineCount == 0)

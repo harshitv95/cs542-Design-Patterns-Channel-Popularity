@@ -74,7 +74,7 @@ public class ChannelContext implements ContextI {
 
 	@Override
 	public void setPopularity(double popularityScore) {
-		avgPopularityScore = popularityScore;
+		avgPopularityScore = popularityScore < 0 ? 0 : popularityScore;
 	}
 
 }
