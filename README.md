@@ -1,4 +1,4 @@
-# CSX42: Assignment 2
+# CS542: Assignment 2
 **Name: Harshit Vadodaria**
 
 -----------------------------------------------------------------------
