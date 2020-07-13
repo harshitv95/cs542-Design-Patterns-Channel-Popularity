@@ -27,7 +27,7 @@ The above command compiles your code and generates .class files inside the BUILD
 ## Instructions to run:
 
 ```commandline
-ant -buildfile channelpopularity/src/build.xml run -Dinput="input.txt" -Doutput="output.txt" -Dmetrics="metrics.txt"
+ant -buildfile channelpopularity/src/build.xml run -Dinput="input.txt" -Doutput="output.txt"
 ```
 Note: Arguments accept the absolute path of the files.
 
